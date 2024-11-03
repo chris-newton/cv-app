@@ -1,10 +1,15 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
-import App from './App.jsx'
+
+import InputContainer from './components/InputContainer.jsx'
+import ResumePreview from './components/ResumePreview.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <App />
+    <div id="content-container">
+      <InputContainer />
+      <ResumePreview />
+    </div>
   </StrictMode>,
 )
