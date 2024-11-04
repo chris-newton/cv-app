@@ -1,24 +1,14 @@
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  /* line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-   */
 
   /* CONSTANTS */
   --page-bg-color: #f3f4f6;
+  --button-active-color: #cdcdcd;
+  --accent-color: #06833e;
   --input-border-radius: 8px;
   --page-padding: 28px;
   --input-dropdown-height: 56px;
-  --input-dropdown-width: 260px;
+  --input-dropdown-width: 316px;
 }
 
 * {
@@ -28,11 +18,12 @@
   padding: 0;
   border: none;
   list-style: none;
+  outline-width: 1px;
+  outline-color: var(--accent-color)
 }
 
 #root {
   background-color: var(--page-bg-color);
-  height: 100vh;
   padding: var(--page-padding);
   display: flex;
   justify-content: center;
@@ -50,13 +41,16 @@ button {
   border-radius: var(--input-border-radius);
   border: none;
   cursor: pointer;
+  font-weight: 600;
+  outline: none;
 }
 
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
 
+button:hover,
+input[type="button"]:hover,
+input[type="submit"]:hover {
+  cursor: pointer;
+}
 /* @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
@@ -74,10 +68,27 @@ button:focus-visible {
   display: flex;
   flex-direction: column;
   gap: 28px;
+  width: 100%;
 }
 
 .input-dropdown {
   width: 100%;
+}
+
+.input-dropdown.open > .input-dropdown-menu {
+  display: grid;
+  grid-auto-rows: 64px;
+}
+
+/* This is for the personal details dropdown menu since
+   it doesn't have a *Menu component wrapping it */
+.personal-details-form {
+  display: grid;
+  grid-template-rows: repeat(4, 1fr)
+}
+
+.input-dropdown.open > .input-dropdown-menu.open {
+  display: block;
 }
 
 .input-dropdown-toggle {
@@ -97,15 +108,15 @@ button:focus-visible {
 
 .input-dropdown-menu {
   display: none;
-  
+  width: 100%;
   padding: 0px 16px 16px 16px;
   background-color: white;
   border-bottom-left-radius: var(--input-border-radius);
   border-bottom-right-radius: var(--input-border-radius);
-}
 
-.input-dropdown-menu.open {
-  display: block;
+  button.add-item {
+    background-color: var(--page-bg-color);
+  }
 }
 
 .input-dropdown-chev {
@@ -120,5 +131,85 @@ button:focus-visible {
 
 .resume-preview {
   background-color: white;
-  width: max(500px, 40vw);
+
+  box-shadow: 0px 10px 15px rgb(201, 201, 201);
+  width: max(700px, 40vw);
+  aspect-ratio: 8.5 / 11;
+}
+
+.education-form,
+.experience-form,
+.personal-details-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  width: var(--input-dropdown-width);
+
+  input {
+    padding-left: 12px;
+    width: 100%;
+    line-height: 2rem;
+    border-radius: var(--input-border-radius);
+  }
+  
+  label {
+    display: block;
+    font-weight: 600;
+  }
+
+  fieldset {
+    grid-column: 1 / 3;
+  }
+
+  fieldset.input-start {
+    grid-column: 1 / 2;
+  }
+  
+  fieldset.input-end {
+    grid-column: 2 / 3;
+  }
+}
+
+input {
+  background-color: var(--page-bg-color);
+}
+
+.education-form-buttons,
+.experience-form-buttons {
+  display: flex;
+  justify-content: space-between;
+
+  input {
+    font-weight: 600;
+    border: 1px solid grey;
+    width: fit-content;
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  input[type="submit"] {
+    color: white;
+    background-color: var(--accent-color);
+  }
+
+  div {
+    display:flex;
+    gap: 12px;
+  }
+}
+
+.add-item-cell {
+  button {
+    padding: 16px;
+    border-radius: 24px;
+  }
+
+  button:active{
+    background-color: var(--button-active-color);
+    
+  }
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
